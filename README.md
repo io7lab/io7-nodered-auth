@@ -9,7 +9,7 @@ It is included in the package.json of the io7 NodeRED by default, but if you wan
 
 1. `cd` into the NodeRED folder and run `npm i `
 2. modify the settings.js for the NodeRED to add this line
-```json
+```javascript
     adminAuth: require('io7-nodered-auth/io7-authentication')({
         AUTH_SERVER: YOUR_IO7_API_SERVER
     }),
