@@ -1,0 +1,15 @@
+{
+  "name": "io7-nodered-auth",
+  "version": "1.0.0",
+  "description": "This is a custom authentication module for the NodeRed adminAuth for io7 IOT Platform.",
+  "main": "io7-authentication.js",
+  "files": [
+    "io7-authetication.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
