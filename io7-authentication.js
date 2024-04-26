@@ -11,7 +11,8 @@ const options = {
 }
 
 module.exports = function init(cfg) {
-    let url = new URL(cfg.AUTH_SERVER_URL || 'http://io7api:2009/users/login');
+    let url_string = cfg.AUTH_SERVER_URL || 'http://io7api:2009/users/login';
+    let url = new URL(url_string);
     let client = http;
     const cafile = cfg.cafile || '/data/certs/ca.pem';
     if (url.protocol === 'https:') {
@@ -31,7 +32,7 @@ module.exports = function init(cfg) {
         authenticate: function (username, password) {
             const data = `{"email": "${username}", "password": "${password}"}`;
             return new Promise(async function (resolve) {
-                const req = client.request(cfg.AUTH_SERVER_URL, options, (res) => {
+                const req = client.request(url_string, options, (res) => {
                     if (res.statusCode === 200) {
                         RED.log.info(`admin ${username} login succeeded`);
                         resolve({ username, permissions: "*" });
