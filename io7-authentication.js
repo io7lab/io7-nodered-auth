@@ -31,7 +31,7 @@ module.exports = function init(cfg) {
         authenticate: function (username, password) {
             const data = `{"email": "${username}", "password": "${password}"}`;
             return new Promise(async function (resolve) {
-                const req = client.request(cfg.AUTH_SERVER, options, (res) => {
+                const req = client.request(cfg.AUTH_SERVER_URL, options, (res) => {
                     if (res.statusCode === 200) {
                         RED.log.info(`admin ${username} login succeeded`);
                         resolve({ username, permissions: "*" });
