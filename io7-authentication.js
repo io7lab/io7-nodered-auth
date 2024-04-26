@@ -7,11 +7,19 @@ const options = {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json;charset=utf-8'
-    },
-    ca : fs.readFileSync('/data/certs/ca.pem')
+    }
 }
 
 module.exports = function init(cfg) {
+    let url = new URL(cfg.AUTH_SERVER);
+    let client = http;
+    const cafile = cfg.cafile || '/data/certs/ca.pem';
+    if (url.protocol === 'https:') {
+        client = https;
+        if (fs.existsSync(cafile)) {
+            options.ca = fs.readFileSync(cafile);
+        }
+    }
 
     return {
         type: "credentials",
@@ -22,8 +30,6 @@ module.exports = function init(cfg) {
 
         authenticate: function (username, password) {
             const data = `{"email": "${username}", "password": "${password}"}`;
-            let url = new URL(cfg.AUTH_SERVER);
-            let client = url.protocol === 'https:' ? https : http;
             return new Promise(async function (resolve) {
                 const req = client.request(cfg.AUTH_SERVER, options, (res) => {
                     if (res.statusCode === 200) {
