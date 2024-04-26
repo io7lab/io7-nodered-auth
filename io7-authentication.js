@@ -11,7 +11,7 @@ const options = {
 }
 
 module.exports = function init(cfg) {
-    let url = new URL(cfg.AUTH_SERVER_URL);
+    let url = new URL(cfg.AUTH_SERVER_URL || 'http://io7api:2009/users/login');
     let client = http;
     const cafile = cfg.cafile || '/data/certs/ca.pem';
     if (url.protocol === 'https:') {
